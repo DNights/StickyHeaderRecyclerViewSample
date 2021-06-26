@@ -17,9 +17,12 @@ class MainActivity : AppCompatActivity() {
         rvMain.adapter = sampleAdapter
         rvMain.layoutManager = LinearLayoutManager(this)
 
+        sampleAdapter.sampleList.add(SampleData("header"))
+        sampleAdapter.sampleList.add(SampleData("top holder"))
         for (i in 0..50){
             sampleAdapter.sampleList.add(SampleData("sample[$i]"))
         }
+        sampleAdapter.sampleList.add(SampleData("bottom"))
 
         sampleAdapter.notifyDataSetChanged()
     }
