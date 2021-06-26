@@ -11,21 +11,25 @@ class SampleAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     val sampleList = arrayListOf<SampleData>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when(viewType) {
+        return when (viewType) {
             TYPE_HEADER -> {
-                val view = LayoutInflater.from(parent.context).inflate(R.layout.viewholder_header, parent, false)
+                val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.viewholder_header, parent, false)
                 HeaderViewHolder(view)
             }
             TYPE_TOP_HOLDER -> {
-                val view = LayoutInflater.from(parent.context).inflate(R.layout.viewholder_top_holder, parent, false)
+                val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.viewholder_top_holder, parent, false)
                 TopHolderViewHolder(view)
             }
             TYPE_BOTTOM -> {
-                val view = LayoutInflater.from(parent.context).inflate(R.layout.viewholder_bottom, parent, false)
+                val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.viewholder_bottom, parent, false)
                 BottomViewHolder(view)
             }
             TYPE_ITEM -> {
-                val view = LayoutInflater.from(parent.context).inflate(R.layout.viewholder_sample, parent, false)
+                val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.viewholder_sample, parent, false)
                 SampleViewHolder(view)
             }
             else -> TODO("unknow viewtype : $viewType")
@@ -37,7 +41,7 @@ class SampleAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             is HeaderViewHolder -> holder.bindView()
             is TopHolderViewHolder -> holder.bindView()
             is BottomViewHolder -> holder.bindView()
-            is SampleViewHolder ->  holder.bindView(sampleList[position])
+            is SampleViewHolder -> holder.bindView(sampleList[position])
         }
     }
 
@@ -48,9 +52,20 @@ class SampleAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun getItemViewType(position: Int) = when (position) {
         0 -> TYPE_HEADER
         1 -> TYPE_TOP_HOLDER
-        sampleList.size-1 -> TYPE_BOTTOM
+        sampleList.size - 1 -> TYPE_BOTTOM
         else -> TYPE_ITEM
+    }
 
+    fun isHeader(position: Int) = position == 1
+
+    fun getHeaderView(list: RecyclerView, position: Int): View? {
+        if (position >= 1) {
+            val view = LayoutInflater.from(list.context)
+                .inflate(R.layout.viewholder_top_holder, list, false)
+            return view
+        }
+
+        return null
     }
 
     companion object {
