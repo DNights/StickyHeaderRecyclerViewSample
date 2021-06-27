@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class SampleAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    val sampleList = arrayListOf<SampleData>()
+    val itemList = arrayListOf<ListItemData>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -41,28 +41,39 @@ class SampleAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             is HeaderViewHolder -> holder.bindView()
             is TopHolderViewHolder -> holder.bindView()
             is BottomViewHolder -> holder.bindView()
-            is SampleViewHolder -> holder.bindView(sampleList[position])
+            is SampleViewHolder -> holder.bindView(itemList[position].item as SampleData)
         }
     }
 
-    override fun getItemCount(): Int {
-        return sampleList.size
+    override fun getItemCount(): Int = itemList.size
+
+    override fun getItemViewType(position: Int) = itemList[position].type
+
+    fun initItemList(sampleList: ArrayList<SampleData>) {
+        itemList.add(ListItemData(TYPE_HEADER, ""))
+        sampleList.forEachIndexed { index, sampleData ->
+            if (index % 10 == 0) {
+                itemList.add(ListItemData(TYPE_TOP_HOLDER, ""))
+            }
+            itemList.add(ListItemData(TYPE_ITEM, sampleData))
+        }
+        itemList.add(ListItemData(TYPE_BOTTOM, ""))
+
+        notifyDataSetChanged()
     }
 
-    override fun getItemViewType(position: Int) = when (position) {
-        0 -> TYPE_HEADER
-        1 -> TYPE_TOP_HOLDER
-        sampleList.size - 1 -> TYPE_BOTTOM
-        else -> TYPE_ITEM
-    }
-
-    fun isHeader(position: Int) = position == 1
+    fun isHeader(position: Int) = itemList[position].type == TYPE_TOP_HOLDER
 
     fun getHeaderView(list: RecyclerView, position: Int): View? {
-        if (position >= 1) {
-            val view = LayoutInflater.from(list.context)
-                .inflate(R.layout.viewholder_top_holder, list, false)
-            return view
+        val lastIndex =
+            if (position < itemList.size)
+                position else itemList.size - 1
+        for (index in lastIndex downTo 0) {
+            val model = itemList[index]
+            if (model.type == TYPE_TOP_HOLDER) {
+                return LayoutInflater.from(list.context)
+                    .inflate(R.layout.viewholder_top_holder, list, false)
+            }
         }
 
         return null

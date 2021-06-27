@@ -19,7 +19,6 @@ class MainActivity : AppCompatActivity() {
         rvMain.layoutManager = LinearLayoutManager(this)
         val sectionItemDecoration = StickyHeaderItemDecoration(getSectionCallback())
         rvMain.addItemDecoration(sectionItemDecoration)
-
         initSampleList()
     }
 
@@ -36,13 +35,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initSampleList() {
-        sampleAdapter.sampleList.add(SampleData("header"))
-        sampleAdapter.sampleList.add(SampleData("top holder"))
+        val samplelist = arrayListOf<SampleData>()
         for (i in 0..50) {
-            sampleAdapter.sampleList.add(SampleData("sample[$i]"))
+            samplelist.add(SampleData("sample[$i]"))
         }
-        sampleAdapter.sampleList.add(SampleData("bottom"))
-
-        sampleAdapter.notifyDataSetChanged()
+        sampleAdapter.initItemList(samplelist)
     }
 }
