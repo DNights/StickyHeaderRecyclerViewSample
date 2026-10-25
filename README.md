@@ -7,11 +7,7 @@
 > **KO** `StickyHeaderItemDecoration` 전체 코드와 동작 설명이 글에 있습니다.
 > **EN** The full `StickyHeaderItemDecoration` code and a walkthrough are in the post.
 
-<!-- TODO: 블로그의 데모 GIF를 내려받아 docs/demo.gif 로 저장한 뒤 아래 주석을 해제하세요.
-     블로그 이미지 주소는 만료될 수 있어 직접 링크하지 않는 것을 권장합니다.
-     Save the blog's demo GIF as docs/demo.gif and uncomment below. Blog image URLs may expire, so don't hotlink them.
-![demo](docs/demo.gif)
--->
+<p align="center"><a href="https://dnight.tistory.com/entry/Android-Sticky-Header-RecyclerView"><img src="docs/demo.gif" width="280" alt="Sticky header demo"></a></p>
 
 ---
 
